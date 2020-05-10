@@ -1,6 +1,7 @@
 # diffy
 
 <img src="https://user-images.githubusercontent.com/6745370/81488173-5cf1e200-92a0-11ea-91ab-6f05f93aef94.png" width="50%" height="50%"/>
+<img src=https://user-images.githubusercontent.com/6745370/81488175-5ebba580-92a0-11ea-8721-17112cde89ec.png width="100%" height="100%">
 
 [![Build Status](https://travis-ci.org/ynqa/diffy.svg?branch=master)](https://travis-ci.org/ynqa/diffy)
 
