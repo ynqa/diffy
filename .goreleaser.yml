@@ -1,0 +1,19 @@
+builds:
+- binary: diffy
+  ldflags:
+  - -X github.com/ynqa/diffy/cmd.version={{.Version}}
+  goos:
+  - darwin
+  - linux
+  goarch:
+  - amd64
+
+archives:
+- format: tar.gz
+
+brews:
+- github:
+    owner: ynqa
+    name: homebrew-diffy
+  homepage: "https://github.com/ynqa/diffy/"
+  description: "Print colored diff more readable"
