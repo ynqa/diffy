@@ -12,7 +12,7 @@ Print colored `diff` more readable like pull requests for GitHub (e.g. unified, 
 For MacOS:
 
 ```bash
-$ brew tap ynqa/diffy
+$ brew tap ynqa/tap
 $ brew install diffy
 ```
 

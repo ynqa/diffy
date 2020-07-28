@@ -14,6 +14,6 @@ archives:
 brews:
 - github:
     owner: ynqa
-    name: homebrew-diffy
-  homepage: "https://github.com/ynqa/diffy/"
+    name: homebrew-tap
+  homepage: https://github.com/ynqa/diffy/
   description: "Print colored diff more readable"
