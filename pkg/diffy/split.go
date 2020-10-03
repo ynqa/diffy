@@ -131,40 +131,142 @@ func WriteSplitDiff(
 				}
 			}
 			if c.Tag == 'r' {
-				var (
-					cursor  int
-					longest = i2 - i1
-				)
-				if longest < j2-j1 {
-					longest = j2 - j1
+				cursor := 0
+				// compare the number of raws
+				minLen := i2 - i1
+				minIsOrg := true
+				if j2-j1 < minLen {
+					minLen = j2 - j1
+					minIsOrg = false
 				}
-				for ; cursor < longest; cursor++ {
-					var (
-						orgLn  string
-						rawOrg string
-						newLn  string
-						rawNew string
-					)
-					if cursor < i2-i1 {
-						orgLn = fmt.Sprintf("%*d", lnSpaceSize, i1+cursor+1)
-						rawOrg = fmt.Sprint(formatTextLine(diff.A[i1+cursor], opt.TabSize))
-					}
-					if cursor < j2-j1 {
-						newLn = fmt.Sprintf("%*d", lnSpaceSize, j1+cursor+1)
-						rawNew = fmt.Sprint(formatTextLine(diff.B[j1+cursor], opt.TabSize))
-					}
+				for ; cursor < minLen; cursor++ {
+					orgTexts := splitText(diff.A[i1+cursor], mid - 6, opt.TabSize)
+					newTexts := splitText(diff.B[j1+cursor], mid - 6, opt.TabSize)
 					buf.WriteString(
 						splittedLine(
-							orgLn,
-							rawOrg,
-							newLn,
-							rawNew,
+							fmt.Sprintf("%*d", lnSpaceSize, i1+cursor+1),
+							orgTexts[0],
+							fmt.Sprintf("%*d", lnSpaceSize, j1+cursor+1),
+							newTexts[0],
 							color.New(color.Gray),
 							color.New(color.Red, color.Bold),
 							color.New(color.Green, color.Bold),
 							mid, opt.SpaceSizeAfterLn, 2,
 						),
 					)
+					textCursor := 1
+					minTextLen := len(orgTexts)
+					minTextIsOrg := true
+					if len(newTexts) < minTextLen {
+						minTextLen = len(newTexts)
+						minTextIsOrg = false
+					}
+					for ; textCursor < minTextLen; textCursor++ {
+						buf.WriteString(
+							splittedLine(
+								strings.Repeat(" ", lnSpaceSize),
+								orgTexts[textCursor],
+								strings.Repeat(" ", lnSpaceSize),
+								newTexts[textCursor],
+								color.New(color.Gray),
+								color.New(color.Red, color.Bold),
+								color.New(color.Green, color.Bold),
+								mid, opt.SpaceSizeAfterLn, 2,
+							),
+						)
+					}
+					if minTextIsOrg {
+						for i := textCursor; i < len(newTexts); i ++ {
+							buf.WriteString(
+								splittedLine(
+									"",
+									"",
+									strings.Repeat(" ", lnSpaceSize),
+									newTexts[i],
+									color.New(color.Gray),
+									color.New(),
+									color.New(color.Green, color.Bold),
+									mid, opt.SpaceSizeAfterLn, 2,
+								),
+							)
+						}
+					} else {
+						for i := textCursor; i < len(orgTexts); i ++ {
+							buf.WriteString(
+								splittedLine(
+									strings.Repeat(" ", lnSpaceSize),
+									orgTexts[i],
+									"",
+									"",
+									color.New(color.Gray),
+									color.New(color.Red, color.Bold),
+									color.New(),
+									mid, opt.SpaceSizeAfterLn, 2,
+								),
+							)
+						}
+					}
+				}
+				if minIsOrg {
+					for ; cursor < j2 - j1; cursor++ {
+						texts := splitText(diff.B[j1+cursor], mid - 6, opt.TabSize)
+						buf.WriteString(
+							splittedLine(
+								"",
+								"",
+								fmt.Sprintf("%*d", lnSpaceSize, j1+cursor+1),
+								texts[0],
+								color.New(color.Gray),
+								color.New(),
+								color.New(color.Green, color.Bold),
+								mid, opt.SpaceSizeAfterLn, 2,
+							),
+						)
+						for i:=1; i<len(texts); i++ {
+							buf.WriteString(
+								splittedLine(
+									"",
+									"",
+									strings.Repeat(" ", lnSpaceSize),
+									texts[i],
+									color.New(color.Gray),
+									color.New(),
+									color.New(color.Green, color.Bold),
+									mid, opt.SpaceSizeAfterLn, 2,
+								),
+							)
+						}
+					}
+				} else {
+					for ; cursor < i2 - i1; cursor++ {
+						texts := splitText(diff.A[i1+cursor], mid - 6, opt.TabSize)
+						buf.WriteString(
+							splittedLine(
+								fmt.Sprintf("%*d", lnSpaceSize, i1+cursor+1),
+								texts[0],
+								"",
+								"",
+								color.New(color.Gray),
+								color.New(color.Red, color.Bold),
+								color.New(),
+								mid, opt.SpaceSizeAfterLn, 2,
+							),
+						)
+						for i:=1; i<len(texts); i++ {
+							buf.WriteString(
+								splittedLine(
+									strings.Repeat(" ", lnSpaceSize),
+									texts[i],
+									"",
+									"",
+									color.New(color.Gray),
+									color.New(color.Red, color.Bold),
+									color.New(),
+									mid, opt.SpaceSizeAfterLn, 2,
+								),
+							)
+						}
+					}
 				}
 			}
 		}
