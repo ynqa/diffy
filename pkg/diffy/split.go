@@ -39,26 +39,42 @@ func WriteSplitDiff(
 			i1, i2, j1, j2 := c.I1, c.I2, c.J1, c.J2
 			if c.Tag == 'e' {
 				for ln, line := range diff.A[i1:i2] {
+					texts := splitText(line, mid - 6, opt.TabSize)
 					buf.WriteString(
 						splittedLine(
 							fmt.Sprintf("%*d", lnSpaceSize, i1+ln+1),
-							formatTextLine(line, opt.TabSize),
+							texts[0],
 							fmt.Sprintf("%*d", lnSpaceSize, j1+ln+1),
-							formatTextLine(line, opt.TabSize),
+							texts[0],
 							color.New(color.Gray),
 							color.New(),
 							color.New(),
 							mid, opt.SpaceSizeAfterLn, 2,
 						),
 					)
+					for i:=1; i<len(texts); i++ {
+						buf.WriteString(
+							splittedLine(
+								strings.Repeat(" ", lnSpaceSize),
+								texts[i],
+								strings.Repeat(" ", lnSpaceSize),
+								texts[i],
+								color.New(color.Gray),
+								color.New(),
+								color.New(),
+								mid, opt.SpaceSizeAfterLn, 2,
+							),
+						)
+					}
 				}
 			}
 			if c.Tag == 'd' {
 				for ln, line := range diff.A[i1:i2] {
+					texts := splitText(line, mid - 6, opt.TabSize)
 					buf.WriteString(
 						splittedLine(
 							fmt.Sprintf("%*d", lnSpaceSize, i1+ln+1),
-							formatTextLine(line, opt.TabSize),
+							texts[0],
 							"",
 							"",
 							color.New(color.Gray),
@@ -67,22 +83,51 @@ func WriteSplitDiff(
 							mid, opt.SpaceSizeAfterLn, 2,
 						),
 					)
+					for i:=1; i<len(texts); i++ {
+						buf.WriteString(
+							splittedLine(
+								strings.Repeat(" ", lnSpaceSize),
+								texts[i],
+								"",
+								"",
+								color.New(color.Gray),
+								color.New(color.Red, color.Bold),
+								color.New(),
+								mid, opt.SpaceSizeAfterLn, 2,
+							),
+						)
+					}
 				}
 			}
 			if c.Tag == 'i' {
 				for ln, line := range diff.B[j1:j2] {
+					texts := splitText(line, mid - 6, opt.TabSize)
 					buf.WriteString(
 						splittedLine(
 							"",
 							"",
 							fmt.Sprintf("%*d", lnSpaceSize, j1+ln+1),
-							formatTextLine(line, opt.TabSize),
+							texts[0],
 							color.New(color.Gray),
 							color.New(),
 							color.New(color.Green, color.Bold),
 							mid, opt.SpaceSizeAfterLn, 2,
 						),
 					)
+					for i:=1; i<len(texts); i++ {
+						buf.WriteString(
+							splittedLine(
+								"",
+								"",
+								strings.Repeat(" ", lnSpaceSize),
+								texts[i],
+								color.New(color.Gray),
+								color.New(),
+								color.New(color.Green, color.Bold),
+								mid, opt.SpaceSizeAfterLn, 2,
+							),
+						)
+					}
 				}
 			}
 			if c.Tag == 'r' {
