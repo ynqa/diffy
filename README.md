@@ -1,11 +1,11 @@
 # diffy
 
+[![Build Status](https://travis-ci.com/ynqa/diffy.svg?branch=master)](https://travis-ci.com/ynqa/diffy)
+
+*diffy* prints diffs like GitHub pull requests (e.g. unified, split), and alternative to [diff](https://linuxjm.osdn.jp/html/gnumaniak/man1/diff.1.html).
+
 <img src="https://user-images.githubusercontent.com/6745370/81488173-5cf1e200-92a0-11ea-91ab-6f05f93aef94.png" width="50%" height="50%"/>
 <img src=https://user-images.githubusercontent.com/6745370/81488175-5ebba580-92a0-11ea-8721-17112cde89ec.png width="100%" height="100%">
-
-[![Build Status](https://travis-ci.org/ynqa/diffy.svg?branch=master)](https://travis-ci.org/ynqa/diffy)
-
-Print colored `diff` more readable like pull requests for GitHub (e.g. unified, split).
 
 ## Installation
 
