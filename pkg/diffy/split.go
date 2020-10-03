@@ -39,7 +39,7 @@ func WriteSplitDiff(
 			i1, i2, j1, j2 := c.I1, c.I2, c.J1, c.J2
 			if c.Tag == 'e' {
 				for ln, line := range diff.A[i1:i2] {
-					texts := splitText(line, mid - 6, opt.TabSize)
+					texts := splitText(line, mid-6, opt.TabSize)
 					buf.WriteString(
 						splittedLine(
 							fmt.Sprintf("%*d", lnSpaceSize, i1+ln+1),
@@ -52,7 +52,7 @@ func WriteSplitDiff(
 							mid, opt.SpaceSizeAfterLn, 2,
 						),
 					)
-					for i:=1; i<len(texts); i++ {
+					for i := 1; i < len(texts); i++ {
 						buf.WriteString(
 							splittedLine(
 								strings.Repeat(" ", lnSpaceSize),
@@ -70,7 +70,7 @@ func WriteSplitDiff(
 			}
 			if c.Tag == 'd' {
 				for ln, line := range diff.A[i1:i2] {
-					texts := splitText(line, mid - 6, opt.TabSize)
+					texts := splitText(line, mid-6, opt.TabSize)
 					buf.WriteString(
 						splittedLine(
 							fmt.Sprintf("%*d", lnSpaceSize, i1+ln+1),
@@ -83,7 +83,7 @@ func WriteSplitDiff(
 							mid, opt.SpaceSizeAfterLn, 2,
 						),
 					)
-					for i:=1; i<len(texts); i++ {
+					for i := 1; i < len(texts); i++ {
 						buf.WriteString(
 							splittedLine(
 								strings.Repeat(" ", lnSpaceSize),
@@ -101,7 +101,7 @@ func WriteSplitDiff(
 			}
 			if c.Tag == 'i' {
 				for ln, line := range diff.B[j1:j2] {
-					texts := splitText(line, mid - 6, opt.TabSize)
+					texts := splitText(line, mid-6, opt.TabSize)
 					buf.WriteString(
 						splittedLine(
 							"",
@@ -114,7 +114,7 @@ func WriteSplitDiff(
 							mid, opt.SpaceSizeAfterLn, 2,
 						),
 					)
-					for i:=1; i<len(texts); i++ {
+					for i := 1; i < len(texts); i++ {
 						buf.WriteString(
 							splittedLine(
 								"",
@@ -140,8 +140,8 @@ func WriteSplitDiff(
 					minIsOrg = false
 				}
 				for ; cursor < minLen; cursor++ {
-					orgTexts := splitText(diff.A[i1+cursor], mid - 6, opt.TabSize)
-					newTexts := splitText(diff.B[j1+cursor], mid - 6, opt.TabSize)
+					orgTexts := splitText(diff.A[i1+cursor], mid-6, opt.TabSize)
+					newTexts := splitText(diff.B[j1+cursor], mid-6, opt.TabSize)
 					buf.WriteString(
 						splittedLine(
 							fmt.Sprintf("%*d", lnSpaceSize, i1+cursor+1),
@@ -176,7 +176,7 @@ func WriteSplitDiff(
 						)
 					}
 					if minTextIsOrg {
-						for i := textCursor; i < len(newTexts); i ++ {
+						for i := textCursor; i < len(newTexts); i++ {
 							buf.WriteString(
 								splittedLine(
 									"",
@@ -191,7 +191,7 @@ func WriteSplitDiff(
 							)
 						}
 					} else {
-						for i := textCursor; i < len(orgTexts); i ++ {
+						for i := textCursor; i < len(orgTexts); i++ {
 							buf.WriteString(
 								splittedLine(
 									strings.Repeat(" ", lnSpaceSize),
@@ -208,8 +208,8 @@ func WriteSplitDiff(
 					}
 				}
 				if minIsOrg {
-					for ; cursor < j2 - j1; cursor++ {
-						texts := splitText(diff.B[j1+cursor], mid - 6, opt.TabSize)
+					for ; cursor < j2-j1; cursor++ {
+						texts := splitText(diff.B[j1+cursor], mid-6, opt.TabSize)
 						buf.WriteString(
 							splittedLine(
 								"",
@@ -222,7 +222,7 @@ func WriteSplitDiff(
 								mid, opt.SpaceSizeAfterLn, 2,
 							),
 						)
-						for i:=1; i<len(texts); i++ {
+						for i := 1; i < len(texts); i++ {
 							buf.WriteString(
 								splittedLine(
 									"",
@@ -238,8 +238,8 @@ func WriteSplitDiff(
 						}
 					}
 				} else {
-					for ; cursor < i2 - i1; cursor++ {
-						texts := splitText(diff.A[i1+cursor], mid - 6, opt.TabSize)
+					for ; cursor < i2-i1; cursor++ {
+						texts := splitText(diff.A[i1+cursor], mid-6, opt.TabSize)
 						buf.WriteString(
 							splittedLine(
 								fmt.Sprintf("%*d", lnSpaceSize, i1+cursor+1),
@@ -252,7 +252,7 @@ func WriteSplitDiff(
 								mid, opt.SpaceSizeAfterLn, 2,
 							),
 						)
-						for i:=1; i<len(texts); i++ {
+						for i := 1; i < len(texts); i++ {
 							buf.WriteString(
 								splittedLine(
 									strings.Repeat(" ", lnSpaceSize),

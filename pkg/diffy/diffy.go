@@ -35,7 +35,7 @@ func splitText(text string, length, tabSize int) []string {
 	var res []string
 	for i := 0; i < len(text); i += length {
 		if i+length < len(text) {
-			res = append(res, text[i:(i + length)])
+			res = append(res, text[i:(i+length)])
 		} else {
 			res = append(res, text[i:])
 		}
