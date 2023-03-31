@@ -1,7 +1,5 @@
 # diffy
 
-[![Build Status](https://travis-ci.com/ynqa/diffy.svg?branch=master)](https://travis-ci.com/ynqa/diffy)
-
 *diffy* prints diffs like GitHub pull requests (e.g. unified, split), and alternative to [diff](https://linuxjm.osdn.jp/html/gnumaniak/man1/diff.1.html).
 
 <img src="https://user-images.githubusercontent.com/6745370/81488173-5cf1e200-92a0-11ea-91ab-6f05f93aef94.png" width="50%" height="50%"/>
