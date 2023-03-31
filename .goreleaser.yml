@@ -12,7 +12,7 @@ archives:
 - format: tar.gz
 
 brews:
-- github:
+- tap:
     owner: ynqa
     name: homebrew-tap
   homepage: https://github.com/ynqa/diffy/
