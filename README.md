@@ -10,7 +10,7 @@
 For MacOS:
 
 ```bash
-$ brew tap ynqa/tap
+$ brew tap ynqa/tap-archived
 $ brew install diffy
 ```
 
